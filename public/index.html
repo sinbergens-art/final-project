@@ -7,14 +7,23 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Travel Agency Auth UI</h1>
-    <div class="sub">
-      API base: <b>/api</b> — JWT stored in <b>localStorage</b> and sent as <b>Authorization: Bearer</b>
-    </div>
 
-    <div class="grid">
-      <div class="card">
+  <!-- Background overlay -->
+  <div class="bg"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="container">
+    <header class="hero">
+      <div class="hero-badge">Travel Agency • Final Project</div>
+      <h1>Travel Agency Dashboard</h1>
+      <p class="sub">
+        API base: <b>/api</b> — JWT saved in <b>localStorage</b> and sent as
+        <b>Authorization: Bearer</b>
+      </p>
+    </header>
+
+    <section class="grid">
+      <div class="card glass">
         <h2>Register</h2>
         <label>Name</label>
         <input id="r_name" placeholder="John Smith" />
@@ -22,66 +31,121 @@
         <input id="r_email" placeholder="john@mail.com" />
         <label>Password</label>
         <input id="r_password" type="password" placeholder="min 6 chars" />
+
         <div class="btns">
-          <button class="btn-green" id="btnRegister">Register</button>
+          <button class="btn btn-green" id="btnRegister">Register</button>
         </div>
-        <small>Tip: Empty fields will show multiple validation errors.</small>
+
+        <div class="hint">
+          Tip: Empty fields will show multiple validation errors.
+        </div>
       </div>
 
-      <div class="card">
+      <div class="card glass">
         <h2>Login</h2>
         <label>Email</label>
         <input id="l_email" placeholder="john@mail.com" />
         <label>Password</label>
         <input id="l_password" type="password" placeholder="******" />
-        <div class="btns">
-          <button class="btn-primary" id="btnLogin">Login</button>
-          <button class="btn-gray" id="btnProfile">Get Profile</button>
-          <button class="btn-red" id="btnLogout">Logout</button>
-        </div>
-        <small>Logout = token delete (JWT is stateless).</small>
-      </div>
-    </div>
 
-    <div class="grid" style="margin-top:22px">
-      <div class="card">
-        <h2>Create Travel Package (Resource)</h2>
-        <label>Title</label>
-        <input id="p_title" placeholder="Almaty → Dubai Tour" />
-        <label>Destination</label>
-        <input id="p_destination" placeholder="Dubai" />
+        <div class="btns">
+          <button class="btn btn-primary" id="btnLogin">Login</button>
+          <button class="btn btn-gray" id="btnProfile">Get Profile</button>
+          <button class="btn btn-red" id="btnLogout">Logout</button>
+        </div>
+
+        <div class="hint">
+          Logout = token delete (JWT is stateless).
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" style="margin-top:22px">
+      <div class="card glass">
+        <h2>Create Travel Package</h2>
+
+        <div class="two">
+          <div>
+            <label>Title</label>
+            <input id="p_title" placeholder="Almaty → Dubai Tour" />
+          </div>
+          <div>
+            <label>Destination</label>
+            <input id="p_destination" placeholder="Dubai" />
+          </div>
+        </div>
+
         <label>Description</label>
         <textarea id="p_desc" placeholder="Tour details..."></textarea>
-        <label>Price</label>
-        <input id="p_price" type="number" placeholder="500" />
-        <label>Days</label>
-        <input id="p_days" type="number" placeholder="7" />
-        <label>Start Date</label>
-        <input id="p_start" type="date" />
+
+        <div class="three">
+          <div>
+            <label>Price</label>
+            <input id="p_price" type="number" placeholder="500" />
+          </div>
+          <div>
+            <label>Days</label>
+            <input id="p_days" type="number" placeholder="7" />
+          </div>
+          <div>
+            <label>Start Date</label>
+            <input id="p_start" type="date" />
+          </div>
+        </div>
+
         <div class="btns">
-          <button class="btn-primary" id="btnCreatePkg">Create</button>
-          <button class="btn-gray" id="btnListPkgs">List My Packages</button>
+          <button class="btn btn-primary" id="btnCreatePkg">Create</button>
+          <button class="btn btn-gray" id="btnListPkgs">List My Packages</button>
+        </div>
+
+        <div class="hint">
+          Requires login (Authorization header).
         </div>
       </div>
 
-      <div class="card">
+      <div class="card glass">
         <h2>Update Profile</h2>
         <label>New Name</label>
         <input id="u_name" placeholder="New name..." />
-        <div class="btns">
-          <button class="btn-primary" id="btnUpdateProfile">Update</button>
-        </div>
-        <small>Requires login.</small>
-      </div>
-    </div>
 
-    <div class="response">
-      <h2>Response</h2>
+        <div class="btns">
+          <button class="btn btn-primary" id="btnUpdateProfile">Update</button>
+        </div>
+
+        <div class="hint">
+          Requires login.
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Quick actions</div>
+          <div class="mini-row">
+            <button class="btn btn-gray btn-small" id="btnProfile2">Refresh Profile</button>
+            <button class="btn btn-gray btn-small" id="btnListPkgs2">Refresh Packages</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="response card glass">
+      <div class="response-head">
+        <h2>Response</h2>
+        <div class="chip" id="tokenChip">Token: —</div>
+      </div>
+
       <pre id="out">{}</pre>
-      <small>Open: http://localhost:3000</small>
-    </div>
+      <div class="footer-note">
+        Open: <b>http://localhost:3000</b>
+      </div>
+    </section>
   </div>
 
   <script src="./app.js"></script>
+  <script>
+    // extra buttons use same handlers (no logic change)
+    const p2 = document.getElementById("btnProfile2");
+    const l2 = document.getElementById("btnListPkgs2");
+    if (p2) p2.addEventListener("click", () => document.getElementById("btnProfile").click());
+    if (l2) l2.addEventListener("click", () => document.getElementById("btnListPkgs").click());
+  </script>
 </body>
 </html>
