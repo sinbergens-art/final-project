@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Travel Agency Auth UI</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Travel Agency Auth UI</h1>
+    <div class="sub">
+      API base: <b>/api</b> — JWT stored in <b>localStorage</b> and sent as <b>Authorization: Bearer</b>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Register</h2>
+        <label>Name</label>
+        <input id="r_name" placeholder="John Smith" />
+        <label>Email</label>
+        <input id="r_email" placeholder="john@mail.com" />
+        <label>Password</label>
+        <input id="r_password" type="password" placeholder="min 6 chars" />
+        <div class="btns">
+          <button class="btn-green" id="btnRegister">Register</button>
+        </div>
+        <small>Tip: Empty fields will show multiple validation errors.</small>
+      </div>
+
+      <div class="card">
+        <h2>Login</h2>
+        <label>Email</label>
+        <input id="l_email" placeholder="john@mail.com" />
+        <label>Password</label>
+        <input id="l_password" type="password" placeholder="******" />
+        <div class="btns">
+          <button class="btn-primary" id="btnLogin">Login</button>
+          <button class="btn-gray" id="btnProfile">Get Profile</button>
+          <button class="btn-red" id="btnLogout">Logout</button>
+        </div>
+        <small>Logout = token delete (JWT is stateless).</small>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <h2>Create Travel Package (Resource)</h2>
+        <label>Title</label>
+        <input id="p_title" placeholder="Almaty → Dubai Tour" />
+        <label>Destination</label>
+        <input id="p_destination" placeholder="Dubai" />
+        <label>Description</label>
+        <textarea id="p_desc" placeholder="Tour details..."></textarea>
+        <label>Price</label>
+        <input id="p_price" type="number" placeholder="500" />
+        <label>Days</label>
+        <input id="p_days" type="number" placeholder="7" />
+        <label>Start Date</label>
+        <input id="p_start" type="date" />
+        <div class="btns">
+          <button class="btn-primary" id="btnCreatePkg">Create</button>
+          <button class="btn-gray" id="btnListPkgs">List My Packages</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Update Profile</h2>
+        <label>New Name</label>
+        <input id="u_name" placeholder="New name..." />
+        <div class="btns">
+          <button class="btn-primary" id="btnUpdateProfile">Update</button>
+        </div>
+        <small>Requires login.</small>
+      </div>
+    </div>
+
+    <div class="response">
+      <h2>Response</h2>
+      <pre id="out">{}</pre>
+      <small>Open: http://localhost:3000</small>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
